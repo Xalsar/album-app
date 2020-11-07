@@ -1,57 +1,33 @@
-import React from "react";
-import { LinearGradient } from "expo";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import Album from "../../components/Album/Album";
+import { ScrollView, Text, View, TouchableOpacity } from "react-native";
 
 const AlbumList = (props) => {
+  const [albums, setAlbums] = useState([]);
+  useEffect(() => {
+    axios
+      .get("https://jsonplaceholder.typicode.com/albums?userId=1")
+      .then((response) => {
+        setAlbums(response.data);
+      });
+  }, []);
+
   return (
-    <View
+    <ScrollView
+      showsVerticalScrollIndicator={false}
       style={{
         flex: 1,
+        flexDirection: "column",
       }}
     >
-      <View style={styles.header}>
-        <Text style={styles.title}>Album 1</Text>
-        <TouchableOpacity
-          style={{
-            backgroundColor: "lightblue",
-            padding: 10,
-            borderRadius: 8,
-          }}
-        >
-          <Text>See more</Text>
-        </TouchableOpacity>
-      </View>
-      <View
-        style={{
-          flex: 1,
-          flexDirection: "row",
-          justifyContent: "space-between",
-        }}
-      >
-        <View style={styles.item}></View>
-        <View style={styles.item}></View>
-        <View style={styles.item}></View>
-      </View>
-    </View>
+      {albums.map((album, id) => (
+        <Album key={id} title={album.title} />
+      ))}
+    </ScrollView>
   );
 };
 
-const styles = {
-  header: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    marginBottom: 20,
-  },
-  title: {
-    fontSize: 22,
-  },
-  item: {
-    width: 85,
-    height: 85,
-    backgroundColor: "lightblue",
-    borderRadius: 10,
-  },
-};
+const styles = {};
 
 export default AlbumList;
