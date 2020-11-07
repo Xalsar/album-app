@@ -1,9 +1,21 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import Thumbnail from "../Thumbnail/Thumbnail";
 import { Text, View, TouchableOpacity } from "react-native";
+import Loading from "../Loading/Loading";
 import capitalize from "../../utilities/capitalize";
 
-const AlbumItem = (props) => {
+const AlbumItem = ({ id, title, handlePress }) => {
+  const [thumbnails, setThumbnails] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(`https://jsonplaceholder.typicode.com/photos?albumId=${id}`)
+      .then(({ data }) => {
+        setThumbnails(data.slice(0, 3));
+      });
+  }, []);
+
   return (
     <View
       style={{
@@ -13,14 +25,14 @@ const AlbumItem = (props) => {
       }}
     >
       <View style={styles.header}>
-        <Text style={styles.title}>{capitalize(props.title)}</Text>
+        <Text style={styles.title}>{capitalize(title)}</Text>
         <TouchableOpacity
           style={{
             backgroundColor: "lightblue",
             padding: 10,
             borderRadius: 8,
           }}
-          onPress={props.handlePress}
+          onPress={handlePress}
         >
           <Text>See more</Text>
         </TouchableOpacity>
@@ -32,9 +44,13 @@ const AlbumItem = (props) => {
           justifyContent: "space-between",
         }}
       >
-        <Thumbnail />
-        <Thumbnail />
-        <Thumbnail />
+        {thumbnails.length === 0 ? (
+          <Loading />
+        ) : (
+          thumbnails.map((thumbnail, id) => (
+            <Thumbnail key={id} url={thumbnail.thumbnailUrl} />
+          ))
+        )}
       </View>
     </View>
   );
