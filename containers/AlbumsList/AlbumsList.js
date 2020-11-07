@@ -19,6 +19,7 @@ const AlbumList = (props) => {
       style={{
         flex: 1,
         flexDirection: "column",
+        backgroundColor: "#fff !important",
       }}
     >
       {albums.map((album, id) => (
