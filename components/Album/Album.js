@@ -1,4 +1,5 @@
 import React from "react";
+import Thumbnail from "../../components/Thumbnail/Thumbnail";
 import { Text, View, TouchableOpacity } from "react-native";
 
 const AlbumList = (props) => {
@@ -21,6 +22,7 @@ const AlbumList = (props) => {
             padding: 10,
             borderRadius: 8,
           }}
+          onPress={props.handlePress}
         >
           <Text>See more</Text>
         </TouchableOpacity>
@@ -32,9 +34,9 @@ const AlbumList = (props) => {
           justifyContent: "space-between",
         }}
       >
-        <View style={styles.item}></View>
-        <View style={styles.item}></View>
-        <View style={styles.item}></View>
+        <Thumbnail />
+        <Thumbnail />
+        <Thumbnail />
       </View>
     </View>
   );
@@ -50,12 +52,6 @@ const styles = {
   title: {
     fontSize: 16,
     maxWidth: "70%",
-  },
-  item: {
-    width: 85,
-    height: 85,
-    backgroundColor: "lightblue",
-    borderRadius: 10,
   },
 };
 
