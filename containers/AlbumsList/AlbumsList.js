@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Album from "../../components/Album/Album";
+import AlbumItem from "../../components/AlbumItem/AlbumItem";
 import { ScrollView, Text, View, TouchableOpacity } from "react-native";
 
 const AlbumList = ({ navigation }) => {
@@ -17,7 +17,7 @@ const AlbumList = ({ navigation }) => {
   return (
     <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
       {albums.map((album, id) => (
-        <Album
+        <AlbumItem
           key={id}
           title={album.title}
           handlePress={() => {

@@ -1,8 +1,8 @@
 import React from "react";
-import Thumbnail from "../../components/Thumbnail/Thumbnail";
+import Thumbnail from "../Thumbnail/Thumbnail";
 import { Text, View, TouchableOpacity } from "react-native";
 
-const AlbumList = (props) => {
+const AlbumItem = (props) => {
   const title = props.title;
   const capitalized = title.charAt(0).toUpperCase() + title.slice(1);
 
@@ -55,4 +55,4 @@ const styles = {
   },
 };
 
-export default AlbumList;
+export default AlbumItem;
