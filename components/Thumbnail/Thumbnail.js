@@ -1,8 +1,17 @@
 import React from "react";
-import { View } from "react-native";
+import { View, Image } from "react-native";
 
-const AlbumList = (props) => {
-  return <View style={styles.item}></View>;
+const AlbumList = ({ url }) => {
+  return (
+    <Image
+      source={{
+        width: 100,
+        height: 100,
+        uri: url,
+      }}
+      style={styles.item}
+    />
+  );
 };
 
 const styles = {
