@@ -3,7 +3,7 @@ import axios from "axios";
 import { ScrollView, Text } from "react-native";
 import PhotoItem from "../../components/PhotoItem/PhotoItem";
 
-const Album = ({ route }) => {
+const Album = ({ route, navigation }) => {
   const { id, title } = route.params;
   const [photos, setPhotos] = useState([]);
 
@@ -21,7 +21,18 @@ const Album = ({ route }) => {
     <ScrollView showsVerticalScrollIndicator={false}>
       <Text style={styles.title}>{capitalized}</Text>
       {photos.map((photo, id) => (
-        <PhotoItem key={id}>{photo.title}</PhotoItem>
+        <PhotoItem
+          key={id}
+          handlePress={() => {
+            navigation.navigate("Photo", {
+              id: photo.id,
+              title: photo.title,
+              url: photo.url,
+            });
+          }}
+        >
+          {photo.title}
+        </PhotoItem>
       ))}
     </ScrollView>
   );
