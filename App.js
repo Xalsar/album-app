@@ -4,6 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { StatusBar } from "expo-status-bar";
 import React from "react";
 import AlbumList from "./containers/AlbumsList/AlbumsList";
+import Album from "./containers/Album/Album";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 
 const Stack = createStackNavigator();
@@ -16,9 +17,12 @@ export default function App() {
         <Stack.Navigator
           screenOptions={{
             headerShown: false,
+            headerMode: "screen",
+            cardStyle: { backgroundColor: "#FFFFFF" },
           }}
         >
           <Stack.Screen name="Home" component={AlbumList} />
+          <Stack.Screen name="Album" component={Album} />
         </Stack.Navigator>
       </View>
     </NavigationContainer>
