@@ -1,15 +1,14 @@
 import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import Thumbnail from "../Thumbnail/Thumbnail";
+import capitalize from "../../utilities/capitalize";
 
 const PhotoItem = ({ children, handlePress }) => {
-  const capitalized = children.charAt(0).toUpperCase() + children.slice(1);
-
   return (
     <TouchableOpacity onPress={handlePress}>
       <View style={styles.container}>
         <Thumbnail />
-        <Text style={styles.title}>{capitalized}</Text>
+        <Text style={styles.title}>{capitalize(children)}</Text>
       </View>
     </TouchableOpacity>
   );

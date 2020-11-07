@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, Image } from "react-native";
+import capitalize from "../../utilities/capitalize";
 
 const Photo = ({ route }) => {
   const { title, url } = route.params;
@@ -14,7 +15,7 @@ const Photo = ({ route }) => {
         }}
         fadeDuration={1000}
       />
-      <Text style={styles.title}>{title}</Text>
+      <Text style={styles.title}>{capitalize(title)}</Text>
     </View>
   );
 };
