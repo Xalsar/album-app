@@ -1,0 +1,62 @@
+import React from "react";
+import { Text, View, TouchableOpacity } from "react-native";
+
+const AlbumList = (props) => {
+  const title = props.title;
+  const capitalized = title.charAt(0).toUpperCase() + title.slice(1);
+
+  return (
+    <View
+      style={{
+        flex: 1,
+        marginTop: 20,
+        marginBottom: 20,
+      }}
+    >
+      <View style={styles.header}>
+        <Text style={styles.title}>{capitalized}</Text>
+        <TouchableOpacity
+          style={{
+            backgroundColor: "lightblue",
+            padding: 10,
+            borderRadius: 8,
+          }}
+        >
+          <Text>See more</Text>
+        </TouchableOpacity>
+      </View>
+      <View
+        style={{
+          flex: 1,
+          flexDirection: "row",
+          justifyContent: "space-between",
+        }}
+      >
+        <View style={styles.item}></View>
+        <View style={styles.item}></View>
+        <View style={styles.item}></View>
+      </View>
+    </View>
+  );
+};
+
+const styles = {
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginBottom: 20,
+  },
+  title: {
+    fontSize: 16,
+    maxWidth: "70%",
+  },
+  item: {
+    width: 85,
+    height: 85,
+    backgroundColor: "lightblue",
+    borderRadius: 10,
+  },
+};
+
+export default AlbumList;
