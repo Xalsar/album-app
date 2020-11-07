@@ -21,7 +21,7 @@ const AlbumList = ({ navigation }) => {
           key={id}
           title={album.title}
           handlePress={() => {
-            navigation.navigate("Album", { id: 1, title: album.title });
+            navigation.navigate("Album", { id: album.id, title: album.title });
           }}
         />
       ))}
