@@ -5,7 +5,8 @@ import { StatusBar } from "expo-status-bar";
 import React from "react";
 import AlbumList from "./containers/AlbumsList/AlbumsList";
 import Album from "./containers/Album/Album";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import Photo from "./containers/Photo/Photo";
+import { StyleSheet, View } from "react-native";
 
 const Stack = createStackNavigator();
 
@@ -23,6 +24,7 @@ export default function App() {
         >
           <Stack.Screen name="Home" component={AlbumList} />
           <Stack.Screen name="Album" component={Album} />
+          <Stack.Screen name="Photo" component={Photo} />
         </Stack.Navigator>
       </View>
     </NavigationContainer>
