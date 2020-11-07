@@ -3,11 +3,11 @@ import { View, Text, TouchableOpacity } from "react-native";
 import Thumbnail from "../Thumbnail/Thumbnail";
 import capitalize from "../../utilities/capitalize";
 
-const PhotoItem = ({ children, handlePress }) => {
+const PhotoItem = ({ children, handlePress, url }) => {
   return (
     <TouchableOpacity onPress={handlePress}>
       <View style={styles.container}>
-        <Thumbnail />
+        <Thumbnail url={url} />
         <Text style={styles.title}>{capitalize(children)}</Text>
       </View>
     </TouchableOpacity>
