@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { ScrollView, Text } from "react-native";
 import PhotoItem from "../../components/PhotoItem/PhotoItem";
+import Loading from "../../components/Loading/Loading";
+import capitalize from "../../utilities/capitalize";
 
 const Album = ({ route, navigation }) => {
   const { id, title } = route.params;
@@ -15,27 +17,30 @@ const Album = ({ route, navigation }) => {
       });
   }, []);
 
-  const capitalized = title.charAt(0).toUpperCase() + title.slice(1);
+  const content =
+    photos.length === 0 ? (
+      <Loading />
+    ) : (
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Text style={styles.title}>{capitalize(title)}</Text>
+        {photos.map((photo, id) => (
+          <PhotoItem
+            key={id}
+            handlePress={() => {
+              navigation.navigate("Photo", {
+                id: photo.id,
+                title: photo.title,
+                url: photo.url,
+              });
+            }}
+          >
+            {photo.title}
+          </PhotoItem>
+        ))}
+      </ScrollView>
+    );
 
-  return (
-    <ScrollView showsVerticalScrollIndicator={false}>
-      <Text style={styles.title}>{capitalized}</Text>
-      {photos.map((photo, id) => (
-        <PhotoItem
-          key={id}
-          handlePress={() => {
-            navigation.navigate("Photo", {
-              id: photo.id,
-              title: photo.title,
-              url: photo.url,
-            });
-          }}
-        >
-          {photo.title}
-        </PhotoItem>
-      ))}
-    </ScrollView>
-  );
+  return content;
 };
 
 const styles = {

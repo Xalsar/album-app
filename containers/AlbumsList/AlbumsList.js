@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { ScrollView } from "react-native";
 import axios from "axios";
 import AlbumItem from "../../components/AlbumItem/AlbumItem";
-import { ScrollView, Text, View, TouchableOpacity } from "react-native";
+import Loading from "../../components/Loading/Loading";
 
 const AlbumList = ({ navigation }) => {
   const [albums, setAlbums] = useState([]);
@@ -14,19 +15,27 @@ const AlbumList = ({ navigation }) => {
       });
   }, []);
 
-  return (
-    <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
-      {albums.map((album, id) => (
-        <AlbumItem
-          key={id}
-          title={album.title}
-          handlePress={() => {
-            navigation.navigate("Album", { id: album.id, title: album.title });
-          }}
-        />
-      ))}
-    </ScrollView>
-  );
+  const content =
+    albums.length === 0 ? (
+      <Loading />
+    ) : (
+      <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
+        {albums.map((album, id) => (
+          <AlbumItem
+            key={id}
+            title={album.title}
+            handlePress={() => {
+              navigation.navigate("Album", {
+                id: album.id,
+                title: album.title,
+              });
+            }}
+          />
+        ))}
+      </ScrollView>
+    );
+
+  return content;
 };
 
 const styles = {
