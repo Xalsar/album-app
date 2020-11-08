@@ -5,7 +5,7 @@ import { Text, View, TouchableOpacity } from "react-native";
 import Loading from "../Loading/Loading";
 import capitalize from "../../utilities/capitalize";
 
-const AlbumItem = ({ id, title, handlePress }) => {
+const AlbumItem = ({ id, title, navigation }) => {
   const [thumbnails, setThumbnails] = useState([]);
 
   useEffect(() => {
@@ -32,7 +32,12 @@ const AlbumItem = ({ id, title, handlePress }) => {
             padding: 10,
             borderRadius: 8,
           }}
-          onPress={handlePress}
+          onPress={() => {
+            navigation.navigate("Album", {
+              id,
+              title,
+            });
+          }}
         >
           <Text>See more</Text>
         </TouchableOpacity>
@@ -48,7 +53,15 @@ const AlbumItem = ({ id, title, handlePress }) => {
           <Loading />
         ) : (
           thumbnails.map((thumbnail, id) => (
-            <Thumbnail key={id} url={thumbnail.thumbnailUrl} />
+            <Thumbnail
+              key={id}
+              url={thumbnail.thumbnailUrl}
+              handlePress={() => {
+                navigation.navigate("Photo", {
+                  id: thumbnail.id,
+                });
+              }}
+            />
           ))
         )}
       </View>
