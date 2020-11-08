@@ -5,6 +5,7 @@ import { Text, View, TouchableOpacity } from "react-native";
 import Loading from "../Loading/Loading";
 import capitalize from "../../utilities/capitalize";
 import { useFonts, Roboto_400Regular } from "@expo-google-fonts/roboto";
+import Icon from "react-native-vector-icons/Fontisto";
 
 const AlbumItem = ({ id, title, navigation }) => {
   const [thumbnails, setThumbnails] = useState([]);
@@ -21,31 +22,21 @@ const AlbumItem = ({ id, title, navigation }) => {
   }, []);
 
   return (
-    <View
-      style={{
-        flex: 1,
-        marginTop: 20,
-        marginBottom: 20,
-      }}
-    >
-      <View style={styles.header}>
+    <View style={styles.container}>
+      <TouchableOpacity
+        style={styles.header}
+        onPress={() => {
+          navigation.navigate("Album", {
+            id,
+            title,
+          });
+        }}
+      >
         <Text style={styles.title}>{capitalize(title)}</Text>
-        <TouchableOpacity
-          style={{
-            backgroundColor: "lightblue",
-            padding: 10,
-            borderRadius: 8,
-          }}
-          onPress={() => {
-            navigation.navigate("Album", {
-              id,
-              title,
-            });
-          }}
-        >
-          <Text>See more</Text>
-        </TouchableOpacity>
-      </View>
+        <View>
+          <Icon name="nav-icon-grid-a" size={17} color="#2c272d" />
+        </View>
+      </TouchableOpacity>
       <View
         style={{
           flex: 1,
@@ -74,17 +65,24 @@ const AlbumItem = ({ id, title, navigation }) => {
 };
 
 const styles = {
+  container: {
+    flex: 1,
+    paddingTop: 34,
+    paddingBottom: 34,
+    borderBottomWidth: 1.5,
+    borderBottomColor: "#ededed",
+  },
   header: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    marginBottom: 20,
+    marginBottom: 26,
   },
   title: {
-    fontSize: 16,
+    fontSize: 17,
     maxWidth: "70%",
     fontFamily: "Roboto_400Regular",
-    color: "black",
+    color: "#2c272d",
   },
 };
 
