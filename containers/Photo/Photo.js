@@ -1,23 +1,36 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { View, Text, Image } from "react-native";
+import Loading from "../../components/Loading/Loading";
 import capitalize from "../../utilities/capitalize";
 
 const Photo = ({ route }) => {
-  const { title, url } = route.params;
+  const { id } = route.params;
+  const [photo, setPhoto] = useState();
 
-  return (
+  useEffect(() => {
+    axios
+      .get(`https://jsonplaceholder.typicode.com/photos/${id}`)
+      .then(({ data }) => setPhoto(data));
+  }, []);
+
+  const content = !photo ? (
+    <Loading />
+  ) : (
     <View style={styles.container}>
       <Image
         source={{
           width: 300,
           height: 300,
-          uri: url,
+          uri: photo.url,
         }}
         fadeDuration={1000}
       />
-      <Text style={styles.title}>{capitalize(title)}</Text>
+      <Text style={styles.title}>{capitalize(photo.title)}</Text>
     </View>
   );
+
+  return content;
 };
 
 const styles = {
