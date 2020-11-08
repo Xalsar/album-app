@@ -25,12 +25,7 @@ const AlbumList = ({ navigation }) => {
             key={id}
             id={album.id}
             title={album.title}
-            handlePress={() => {
-              navigation.navigate("Album", {
-                id: album.id,
-                title: album.title,
-              });
-            }}
+            navigation={navigation}
           />
         ))}
       </ScrollView>
