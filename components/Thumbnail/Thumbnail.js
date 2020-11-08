@@ -21,7 +21,7 @@ const styles = {
     width: 85,
     height: 85,
     backgroundColor: "lightblue",
-    borderRadius: 10,
+    borderRadius: 15,
   },
 };
 
