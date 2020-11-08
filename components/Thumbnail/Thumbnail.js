@@ -1,16 +1,18 @@
 import React from "react";
-import { View, Image } from "react-native";
+import { View, Image, TouchableOpacity } from "react-native";
 
-const AlbumList = ({ url }) => {
+const Thumbnail = ({ url, handlePress }) => {
   return (
-    <Image
-      source={{
-        width: 100,
-        height: 100,
-        uri: url,
-      }}
-      style={styles.item}
-    />
+    <TouchableOpacity onPress={handlePress}>
+      <Image
+        source={{
+          width: 100,
+          height: 100,
+          uri: url,
+        }}
+        style={styles.item}
+      />
+    </TouchableOpacity>
   );
 };
 
@@ -23,4 +25,4 @@ const styles = {
   },
 };
 
-export default AlbumList;
+export default Thumbnail;
