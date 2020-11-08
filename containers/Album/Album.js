@@ -49,8 +49,10 @@ const Album = ({ route, navigation }) => {
 const styles = {
   title: {
     fontSize: 22,
+    padding: 12,
     paddingTop: 10,
     fontFamily: "Roboto_400Regular",
+    color: "#2c272d",
   },
 };
 
