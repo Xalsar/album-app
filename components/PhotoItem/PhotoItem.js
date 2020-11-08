@@ -30,13 +30,19 @@ const styles = {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginTop: 15,
+    marginTop: 24,
+    paddingBottom: 24,
+    paddingLeft: 3,
+    paddingRight: 3,
+    borderBottomWidth: 1.5,
+    borderBottomColor: "#ededed",
   },
   title: {
     maxWidth: "60%",
     lineHeight: 20,
     textAlign: "right",
     fontFamily: "Roboto_400Regular",
+    color: "#2c272d",
   },
 };
 
