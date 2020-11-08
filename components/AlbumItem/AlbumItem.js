@@ -4,9 +4,13 @@ import Thumbnail from "../Thumbnail/Thumbnail";
 import { Text, View, TouchableOpacity } from "react-native";
 import Loading from "../Loading/Loading";
 import capitalize from "../../utilities/capitalize";
+import { useFonts, Roboto_400Regular } from "@expo-google-fonts/roboto";
 
 const AlbumItem = ({ id, title, navigation }) => {
   const [thumbnails, setThumbnails] = useState([]);
+  let [fontsLoaded] = useFonts({
+    Roboto_400Regular,
+  });
 
   useEffect(() => {
     axios
@@ -49,7 +53,7 @@ const AlbumItem = ({ id, title, navigation }) => {
           justifyContent: "space-between",
         }}
       >
-        {thumbnails.length === 0 ? (
+        {thumbnails.length === 0 || !fontsLoaded ? (
           <Loading />
         ) : (
           thumbnails.map((thumbnail, id) => (
@@ -79,6 +83,8 @@ const styles = {
   title: {
     fontSize: 16,
     maxWidth: "70%",
+    fontFamily: "Roboto_400Regular",
+    color: "black",
   },
 };
 

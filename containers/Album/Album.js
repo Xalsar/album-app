@@ -4,10 +4,14 @@ import { ScrollView, Text } from "react-native";
 import PhotoItem from "../../components/PhotoItem/PhotoItem";
 import Loading from "../../components/Loading/Loading";
 import capitalize from "../../utilities/capitalize";
+import { useFonts, Roboto_400Regular } from "@expo-google-fonts/roboto";
 
 const Album = ({ route, navigation }) => {
   const { id, title } = route.params;
   const [photos, setPhotos] = useState([]);
+  let [fontsLoaded] = useFonts({
+    Roboto_400Regular,
+  });
 
   useEffect(() => {
     axios
@@ -18,7 +22,7 @@ const Album = ({ route, navigation }) => {
   }, []);
 
   const content =
-    photos.length === 0 ? (
+    photos.length === 0 || !fontsLoaded ? (
       <Loading />
     ) : (
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -46,6 +50,7 @@ const styles = {
   title: {
     fontSize: 22,
     paddingTop: 10,
+    fontFamily: "Roboto_400Regular",
   },
 };
 
