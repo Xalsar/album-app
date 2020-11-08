@@ -26,6 +26,7 @@ const Album = ({ route, navigation }) => {
         {photos.map((photo, id) => (
           <PhotoItem
             key={id}
+            url={photo.thumbnailUrl}
             handlePress={() => {
               navigation.navigate("Photo", {
                 id: photo.id,
