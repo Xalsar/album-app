@@ -30,8 +30,6 @@ const Album = ({ route, navigation }) => {
             handlePress={() => {
               navigation.navigate("Photo", {
                 id: photo.id,
-                title: photo.title,
-                url: photo.url,
               });
             }}
           >
