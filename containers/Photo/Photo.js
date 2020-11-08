@@ -50,6 +50,7 @@ const styles = {
     textAlign: "center",
     marginTop: 30,
     fontFamily: "Roboto_400Regular",
+    color: "#2c272d",
   },
 };
 
