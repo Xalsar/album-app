@@ -1,18 +1,17 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { View, Text, Image, Animated, Dimensions } from "react-native";
-import { PinchGestureHandler, State } from "react-native-gesture-handler";
+import { Image, Text, Modal, ScrollView, TouchableOpacity } from "react-native";
 import Loading from "../../components/Loading/Loading";
 import Error from "../../components/Error/Error";
 import Header from "../../components/Header/Header";
+import ImageViewer from "react-native-image-zoom-viewer";
 import capitalize from "../../utilities/capitalize";
-
-const screen = Dimensions.get("window");
 
 const Photo = ({ route, navigation }) => {
   const { id } = route.params;
   const [photo, setPhoto] = useState();
   const [error, setError] = useState(false);
+  const [zoom, setZoom] = useState(false);
 
   useEffect(() => {
     axios
@@ -27,47 +26,35 @@ const Photo = ({ route, navigation }) => {
     return <Error />;
   }
 
-  const scale = new Animated.Value(1);
-
-  const onPinchEvent = Animated.event(
-    [
-      {
-        nativeEvent: { scale: scale },
-      },
-    ],
+  const image = [
     {
-      useNativeDriver: true,
-    }
-  );
-
-  const onPinchStateChange = (event) => {
-    if (event.nativeEvent.oldState === State.ACTIVE) {
-      Animated.spring(scale, {
-        toValue: 1,
-        useNativeDriver: true,
-      }).start();
-    }
-  };
+      url: photo.url,
+    },
+  ];
 
   return (
-    <View>
+    <ScrollView>
       <Header title={"Photo"} navigation={navigation} />
-      <PinchGestureHandler
-        onGestureEvent={onPinchEvent}
-        onHandlerStateChange={onPinchStateChange}
-      >
-        <Animated.Image
-          source={{ uri: photo.url }}
-          style={{
-            width: screen.width,
-            height: 300,
-            transform: [{ scale: scale }],
+      <TouchableOpacity onPress={() => setZoom(true)}>
+        <Image
+          style={{ width: 300, height: 300 }}
+          source={{
+            uri: photo.url,
           }}
-          resizeMode="contain"
         />
-      </PinchGestureHandler>
+      </TouchableOpacity>
+      {zoom ? (
+        <Modal visible={true} transparent={true}>
+          <ImageViewer
+            imageUrls={image}
+            renderIndicator={() => null}
+            enableSwipeDown={true}
+            onCancel={() => setZoom(false)}
+          />
+        </Modal>
+      ) : undefined}
       <Text style={styles.title}>{capitalize(photo.title)}</Text>
-    </View>
+    </ScrollView>
   );
 };
 
