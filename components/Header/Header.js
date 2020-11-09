@@ -1,22 +1,8 @@
 import React from "react";
 import Icon from "react-native-vector-icons/AntDesign";
-import Loading from "../Loading/Loading";
-import { View, Text, ActivityIndicator, TouchableOpacity } from "react-native";
-import { useFonts, Roboto_400Regular } from "@expo-google-fonts/roboto";
+import { View, Text, TouchableOpacity } from "react-native";
 
 const Header = ({ title, navigation }) => {
-  let [fontsLoaded] = useFonts({
-    Roboto_400Regular,
-  });
-
-  if (!fontsLoaded) {
-    return (
-      <View>
-        <Loading />
-      </View>
-    );
-  }
-
   const icon = navigation ? (
     <TouchableOpacity
       style={styles.leftArrow}

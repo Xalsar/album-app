@@ -2,17 +2,9 @@ import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import Thumbnail from "../Thumbnail/Thumbnail";
 import capitalize from "../../utilities/capitalize";
-import Loading from "../Loading/Loading";
-import { useFonts, Roboto_400Regular } from "@expo-google-fonts/roboto";
 
 const PhotoItem = ({ children, handlePress, url }) => {
-  let [fontsLoaded] = useFonts({
-    Roboto_400Regular,
-  });
-
-  const content = !fontsLoaded ? (
-    <Loading />
-  ) : (
+  return (
     <TouchableOpacity onPress={handlePress}>
       <View style={styles.container}>
         <Thumbnail url={url} />
@@ -20,8 +12,6 @@ const PhotoItem = ({ children, handlePress, url }) => {
       </View>
     </TouchableOpacity>
   );
-
-  return content;
 };
 
 const styles = {

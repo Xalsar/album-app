@@ -5,14 +5,10 @@ import PhotoItem from "../../components/PhotoItem/PhotoItem";
 import Loading from "../../components/Loading/Loading";
 import Header from "../../components/Header/Header";
 import capitalize from "../../utilities/capitalize";
-import { useFonts, Roboto_400Regular } from "@expo-google-fonts/roboto";
 
 const Album = ({ route, navigation }) => {
   const { id, title } = route.params;
   const [photos, setPhotos] = useState([]);
-  let [fontsLoaded] = useFonts({
-    Roboto_400Regular,
-  });
 
   useEffect(() => {
     axios
@@ -23,7 +19,7 @@ const Album = ({ route, navigation }) => {
   }, []);
 
   const content =
-    photos.length === 0 || !fontsLoaded ? (
+    photos.length === 0 ? (
       <Loading />
     ) : (
       <ScrollView showsVerticalScrollIndicator={false}>

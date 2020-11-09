@@ -4,14 +4,10 @@ import { View, Text, Image } from "react-native";
 import Loading from "../../components/Loading/Loading";
 import Header from "../../components/Header/Header";
 import capitalize from "../../utilities/capitalize";
-import { useFonts, Roboto_400Regular } from "@expo-google-fonts/roboto";
 
 const Photo = ({ route, navigation }) => {
   const { id } = route.params;
   const [photo, setPhoto] = useState();
-  let [fontsLoaded] = useFonts({
-    Roboto_400Regular,
-  });
 
   useEffect(() => {
     axios
@@ -19,25 +15,24 @@ const Photo = ({ route, navigation }) => {
       .then(({ data }) => setPhoto(data));
   }, []);
 
-  const content =
-    !photo || !fontsLoaded ? (
-      <Loading />
-    ) : (
-      <View flex={1}>
-        <Header title={"Photo"} navigation={navigation} />
-        <View style={styles.container}>
-          <Image
-            source={{
-              width: 300,
-              height: 300,
-              uri: photo.url,
-            }}
-            fadeDuration={1000}
-          />
-          <Text style={styles.title}>{capitalize(photo.title)}</Text>
-        </View>
+  const content = !photo ? (
+    <Loading />
+  ) : (
+    <View flex={1}>
+      <Header title={"Photo"} navigation={navigation} />
+      <View style={styles.container}>
+        <Image
+          source={{
+            width: 300,
+            height: 300,
+            uri: photo.url,
+          }}
+          fadeDuration={1000}
+        />
+        <Text style={styles.title}>{capitalize(photo.title)}</Text>
       </View>
-    );
+    </View>
+  );
 
   return content;
 };

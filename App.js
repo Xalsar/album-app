@@ -6,11 +6,21 @@ import React from "react";
 import AlbumList from "./containers/AlbumsList/AlbumsList";
 import Album from "./containers/Album/Album";
 import Photo from "./containers/Photo/Photo";
+import Loading from "./components/Loading/Loading";
 import { StyleSheet, View } from "react-native";
+import { useFonts, Roboto_400Regular } from "@expo-google-fonts/roboto";
 
 const Stack = createStackNavigator();
 
 export default function App() {
+  let [fontsLoaded] = useFonts({
+    Roboto_400Regular,
+  });
+
+  if (!fontsLoaded) {
+    return <Loading />;
+  }
+
   return (
     <NavigationContainer>
       <View style={styles.container}>
