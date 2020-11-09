@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Thumbnail from "../Thumbnail/Thumbnail";
-import { Text, View, TouchableOpacity } from "react-native";
+import { Text, View, TouchableOpacity, ScrollView } from "react-native";
 import Loading from "../Loading/Loading";
 import Error from "../Error/Error";
 import capitalize from "../../utilities/capitalize";
@@ -15,7 +15,7 @@ const AlbumItem = ({ id, title, navigation }) => {
     axios
       .get(`https://jsonplaceholder.typicode.com/photos?albumId=${id}`)
       .then(({ data }) => {
-        setThumbnails(data.slice(0, 3));
+        setThumbnails(data.slice(0, 9));
       })
       .catch((error) => setError(error));
   }, []);
@@ -25,6 +25,10 @@ const AlbumItem = ({ id, title, navigation }) => {
   } else if (error) {
     return <Error />;
   }
+
+  const thumbnailSet1 = thumbnails.slice(0, 3);
+  const thumbnailSet2 = thumbnails.slice(3, 6);
+  const thumbnailSet3 = thumbnails.slice(6, 9);
 
   return (
     <View style={styles.container}>
@@ -42,29 +46,32 @@ const AlbumItem = ({ id, title, navigation }) => {
           <Icon name="nav-icon-grid-a" size={17} color="#2c272d" />
         </View>
       </TouchableOpacity>
-      <View
-        style={{
-          flex: 1,
-          flexDirection: "row",
-          justifyContent: "space-between",
-        }}
+      <ScrollView
+        horizontal={true}
+        contentContainerStyle={{ width: `${100 * 3}%` }}
+        showsHorizontalScrollIndicator={false}
+        scrollEventThrottle={200}
+        decelerationRate="fast"
+        pagingEnabled
       >
-        {thumbnails.length === 0 ? (
-          <Loading />
-        ) : (
-          thumbnails.map((thumbnail, id) => (
-            <Thumbnail
-              key={id}
-              url={thumbnail.thumbnailUrl}
-              handlePress={() => {
-                navigation.navigate("Photo", {
-                  id: thumbnail.id,
-                });
-              }}
-            />
-          ))
-        )}
-      </View>
+        {[thumbnailSet1, thumbnailSet2, thumbnailSet3].map((set, id1) => {
+          return (
+            <View key={id1} style={styles.thumbnailsContainer}>
+              {set.map((thumbnail, id) => (
+                <Thumbnail
+                  key={id}
+                  url={thumbnail.thumbnailUrl}
+                  handlePress={() => {
+                    navigation.navigate("Photo", {
+                      id: thumbnail.id,
+                    });
+                  }}
+                />
+              ))}
+            </View>
+          );
+        })}
+      </ScrollView>
     </View>
   );
 };
@@ -88,6 +95,15 @@ const styles = {
     maxWidth: "70%",
     fontFamily: "Roboto_400Regular",
     color: "#2c272d",
+  },
+  thumbnailsContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    flexBasis: "33.3%",
+    flex: 1,
+    maxWidth: "33.3%",
+    paddingRight: 2,
+    paddingLeft: 2,
   },
 };
 
