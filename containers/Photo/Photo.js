@@ -2,22 +2,29 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { View, Text, Image } from "react-native";
 import Loading from "../../components/Loading/Loading";
+import Error from "../../components/Error/Error";
 import Header from "../../components/Header/Header";
 import capitalize from "../../utilities/capitalize";
 
 const Photo = ({ route, navigation }) => {
   const { id } = route.params;
   const [photo, setPhoto] = useState();
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     axios
       .get(`https://jsonplaceholder.typicode.com/photos/${id}`)
-      .then(({ data }) => setPhoto(data));
+      .then(({ data }) => setPhoto(data))
+      .catch((error) => setError(error));
   }, []);
 
-  const content = !photo ? (
-    <Loading />
-  ) : (
+  if (!photo) {
+    return <Loading />;
+  } else if (error) {
+    return <Error />;
+  }
+
+  return (
     <View flex={1}>
       <Header title={"Photo"} navigation={navigation} />
       <View style={styles.container}>
