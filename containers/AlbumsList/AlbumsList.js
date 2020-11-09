@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { ScrollView } from "react-native";
 import axios from "axios";
 import AlbumItem from "../../components/AlbumItem/AlbumItem";
+import Header from "../../components/Header/Header";
 import Loading from "../../components/Loading/Loading";
 
 const AlbumList = ({ navigation }) => {
@@ -20,6 +21,7 @@ const AlbumList = ({ navigation }) => {
       <Loading />
     ) : (
       <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
+        <Header title={"Home"} />
         {albums.map((album, id) => (
           <AlbumItem
             key={id}

@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { View, Text, Image } from "react-native";
 import Loading from "../../components/Loading/Loading";
+import Header from "../../components/Header/Header";
 import capitalize from "../../utilities/capitalize";
 import { useFonts, Roboto_400Regular } from "@expo-google-fonts/roboto";
 
-const Photo = ({ route }) => {
+const Photo = ({ route, navigation }) => {
   const { id } = route.params;
   const [photo, setPhoto] = useState();
   let [fontsLoaded] = useFonts({
@@ -22,16 +23,19 @@ const Photo = ({ route }) => {
     !photo || !fontsLoaded ? (
       <Loading />
     ) : (
-      <View style={styles.container}>
-        <Image
-          source={{
-            width: 300,
-            height: 300,
-            uri: photo.url,
-          }}
-          fadeDuration={1000}
-        />
-        <Text style={styles.title}>{capitalize(photo.title)}</Text>
+      <View flex={1}>
+        <Header title={"Photo"} navigation={navigation} />
+        <View style={styles.container}>
+          <Image
+            source={{
+              width: 300,
+              height: 300,
+              uri: photo.url,
+            }}
+            fadeDuration={1000}
+          />
+          <Text style={styles.title}>{capitalize(photo.title)}</Text>
+        </View>
       </View>
     );
 

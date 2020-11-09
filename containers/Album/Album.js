@@ -3,6 +3,7 @@ import axios from "axios";
 import { ScrollView, Text } from "react-native";
 import PhotoItem from "../../components/PhotoItem/PhotoItem";
 import Loading from "../../components/Loading/Loading";
+import Header from "../../components/Header/Header";
 import capitalize from "../../utilities/capitalize";
 import { useFonts, Roboto_400Regular } from "@expo-google-fonts/roboto";
 
@@ -26,6 +27,7 @@ const Album = ({ route, navigation }) => {
       <Loading />
     ) : (
       <ScrollView showsVerticalScrollIndicator={false}>
+        <Header title={"Album"} navigation={navigation} />
         <Text style={styles.title}>{capitalize(title)}</Text>
         {photos.map((photo, id) => (
           <PhotoItem
@@ -48,7 +50,7 @@ const Album = ({ route, navigation }) => {
 
 const styles = {
   title: {
-    fontSize: 22,
+    fontSize: 20,
     padding: 12,
     paddingTop: 10,
     fontFamily: "Roboto_400Regular",
