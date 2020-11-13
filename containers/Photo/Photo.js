@@ -37,7 +37,7 @@ const Photo = ({ route, navigation }) => {
       <Header title={"Photo"} navigation={navigation} />
       <TouchableOpacity onPress={() => setZoom(true)}>
         <Image
-          style={{ width: 300, height: 300 }}
+          style={{ width: 300, height: 300, backgroundColor: "lightblue" }}
           source={{
             uri: photo.url,
           }}
